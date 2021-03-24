@@ -28,4 +28,11 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
-      run: bundle exec rspec -fd
+      env:
+        RAILS_ENV: test
+        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        RAILS_TEST_KEY: ${{ secrets.RAILS_TEST_KEY }}
+      run: |
+        mkdir temp_files
+        bundle exec rspec -fd
+
